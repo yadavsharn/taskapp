@@ -7,6 +7,9 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Zap, Mail, Lock, User, ArrowRight, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
+import { motion } from "framer-motion";
+import { shake } from "@/lib/animations";
+import MotionPage from "@/components/motion/MotionPage";
 
 const emailSchema = z.string().email("Please enter a valid email address");
 const passwordSchema = z.string().min(6, "Password must be at least 6 characters");
@@ -18,7 +21,7 @@ const Auth = () => {
   const [displayName, setDisplayName] = useState("");
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
-  
+
   const { signIn, signUp, user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -31,28 +34,28 @@ const Auth = () => {
 
   const validateForm = () => {
     const newErrors: { email?: string; password?: string } = {};
-    
+
     const emailResult = emailSchema.safeParse(email);
     if (!emailResult.success) {
       newErrors.email = emailResult.error.errors[0].message;
     }
-    
+
     const passwordResult = passwordSchema.safeParse(password);
     if (!passwordResult.success) {
       newErrors.password = passwordResult.error.errors[0].message;
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
-    
+
     setLoading(true);
-    
+
     try {
       if (isLogin) {
         const { error } = await signIn(email, password);
@@ -96,7 +99,7 @@ const Auth = () => {
         } else {
           toast({
             title: "Account created!",
-            description: "Welcome to CommitOS. Let's build some consistency!",
+            description: "Welcome to Peerline. Let's build some consistency!",
           });
           navigate("/dashboard");
         }
@@ -115,11 +118,11 @@ const Auth = () => {
             <Zap className="w-8 h-8 text-primary-foreground" />
           </div>
           <h1 className="font-display text-3xl font-bold">
-            {isLogin ? "Welcome back" : "Join CommitOS"}
+            {isLogin ? "Welcome back" : "Join Peerline"}
           </h1>
           <p className="text-muted-foreground mt-2">
-            {isLogin 
-              ? "Log in to continue your accountability journey" 
+            {isLogin
+              ? "Log in to continue your accountability journey"
               : "Start transforming your discipline today"}
           </p>
         </div>
@@ -142,7 +145,7 @@ const Auth = () => {
                 </div>
               </div>
             )}
-            
+
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <div className="relative">

@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, Zap, LogOut } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import { motion } from "framer-motion";
+import { fadeIn, scaleIn, slideUp, staggerContainer } from "@/lib/animations";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,66 +32,88 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
+    <motion.nav
+      initial="hidden"
+      animate="visible"
+      className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50"
+    >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center shadow-lg group-hover:shadow-glow transition-shadow duration-300">
+            <motion.div
+              variants={scaleIn}
+              className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center shadow-lg group-hover:shadow-glow transition-shadow duration-300"
+            >
               <Zap className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <span className="font-display font-bold text-xl">CommitOS</span>
+            </motion.div>
+            <motion.span
+              variants={fadeIn}
+              className="font-display font-bold text-xl"
+            >
+              Peerline
+            </motion.span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <motion.div
+            variants={staggerContainer}
+            className="hidden md:flex items-center gap-8"
+          >
             {isLanding && !user && navLinks.map((link) => (
-              <a
+              <motion.a
                 key={link.name}
                 href={link.href}
+                variants={slideUp}
                 className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm font-medium"
               >
                 {link.name}
-              </a>
+              </motion.a>
             ))}
             {user && (
               <>
-                <Link
-                  to="/dashboard"
-                  className={`text-sm font-medium transition-colors duration-200 ${
-                    location.pathname === "/dashboard" 
-                      ? "text-foreground" 
+                <motion.div variants={slideUp}>
+                  <Link
+                    to="/dashboard"
+                    className={`text-sm font-medium transition-colors duration-200 ${location.pathname === "/dashboard"
+                      ? "text-foreground"
                       : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  Dashboard
-                </Link>
-                <Link
-                  to="/rooms"
-                  className={`text-sm font-medium transition-colors duration-200 ${
-                    location.pathname === "/rooms" 
-                      ? "text-foreground" 
+                      }`}
+                  >
+                    Dashboard
+                  </Link>
+                </motion.div>
+                <motion.div variants={slideUp}>
+                  <Link
+                    to="/rooms"
+                    className={`text-sm font-medium transition-colors duration-200 ${location.pathname === "/rooms"
+                      ? "text-foreground"
                       : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  Rooms
-                </Link>
-                <Link
-                  to="/profile"
-                  className={`text-sm font-medium transition-colors duration-200 ${
-                    location.pathname === "/profile" 
-                      ? "text-foreground" 
+                      }`}
+                  >
+                    Rooms
+                  </Link>
+                </motion.div>
+                <motion.div variants={slideUp}>
+                  <Link
+                    to="/profile"
+                    className={`text-sm font-medium transition-colors duration-200 ${location.pathname === "/profile"
+                      ? "text-foreground"
                       : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  Profile
-                </Link>
+                      }`}
+                  >
+                    Profile
+                  </Link>
+                </motion.div>
               </>
             )}
-          </div>
+          </motion.div>
 
           {/* CTA Buttons */}
-          <div className="hidden md:flex items-center gap-3">
+          <motion.div
+            variants={fadeIn}
+            className="hidden md:flex items-center gap-3"
+          >
             {user ? (
               <Button variant="outline" onClick={handleSignOut}>
                 <LogOut className="w-4 h-4 mr-2" />
@@ -105,7 +129,7 @@ const Navbar = () => {
                 </Button>
               </>
             )}
-          </div>
+          </motion.div>
 
           {/* Mobile Menu Button */}
           <button
@@ -118,7 +142,12 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden py-4 border-t border-border animate-fade-in">
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden py-4 border-t border-border"
+          >
             <div className="flex flex-col gap-4">
               {user ? (
                 <>
@@ -171,10 +200,10 @@ const Navbar = () => {
                 </>
               )}
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 

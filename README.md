@@ -1,7 +1,7 @@
-# 🌱 Commitra  
+# 🌱 Peerline  
 ### Commit Together. Grow Together. Every Day.
 
-Commitra is a **peer-based lifestyle commitment and accountability platform** designed for 2026 and beyond.  
+Peerline is a **peer-based lifestyle commitment and accountability platform** designed for 2026 and beyond.  
 It helps individuals stay disciplined, honest, and consistent by combining **daily commitments, peer visibility, rewards, and penalties** into a single system.
 
 This is **not a to-do app**.  
@@ -14,7 +14,7 @@ This is a **Lifestyle Commitment Operating System**.
 People don’t fail because they lack goals.  
 They fail because no one is watching.
 
-Commitra transforms:
+Peerline transforms:
 - **Intent → Commitment**
 - **Commitment → Discipline**
 - **Discipline → Lifestyle change**
@@ -27,7 +27,7 @@ by making daily actions **visible, measurable, and socially accountable**.
 
 > *When commitments are public, excuses disappear.*
 
-Commitra uses **peer rooms**, **daily commitments**, and **behavior transparency** to replace motivation with responsibility.
+Peerline uses **peer rooms**, **daily commitments**, and **behavior transparency** to replace motivation with responsibility.
 
 ---
 
@@ -226,7 +226,7 @@ This score powers:
 
 ## 🏁 Final Thought
 
-Commitra is built for people who are tired of:
+Peerline is built for people who are tired of:
 ❌ Motivation hacks  
 ❌ Empty to-do lists  
 ❌ Broken resolutions  
